@@ -1,8 +1,8 @@
-var express = require('express')
-var router = express.Router()
+import express from 'express'
+const router = express.Router()
 
 router.get('/', function (req, res, next) {
 	res.send('fewfwe')
 })
 
-module.exports = router
+export default router
