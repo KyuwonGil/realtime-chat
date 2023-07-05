@@ -1,4 +1,7 @@
-import app from '../app.js'
+/* eslint-disable indent */
+/* eslint-disable no-fallthrough */
+
+import app from '../app'
 import http from 'http'
 import debug from 'debug'
 
@@ -13,8 +16,8 @@ server.listen(port)
 server.on('error', onError)
 server.on('listening', onListening)
 
-function normalizePort(val) {
-	var port = parseInt(val, 10)
+function normalizePort(val: string) {
+	const port = parseInt(val, 10)
 
 	if (isNaN(port)) {
 		// named pipe
@@ -29,16 +32,15 @@ function normalizePort(val) {
 	return false
 }
 
-function onError(error) {
+function onError(error: { syscall: string; code: string }) {
 	if (error.syscall !== 'listen') {
 		throw error
 	}
 
-	var bind = typeof port === 'string'
+	const bind = typeof port === 'string'
 		? 'Pipe ' + port
 		: 'Port ' + port
 
-	// handle specific listen errors with friendly messages
 	switch (error.code) {
 		case 'EACCES':
 			console.error(bind + ' requires elevated privileges')
@@ -52,9 +54,9 @@ function onError(error) {
 }
 
 function onListening() {
-	var addr = server.address()
-	var bind = typeof addr === 'string'
+	const addr = server.address()
+	const bind = typeof addr === 'string'
 		? 'pipe ' + addr
-		: 'port ' + addr.port
+		: 'port ' + addr?.port
 	debugServer('Listening on ' + bind)
 }
