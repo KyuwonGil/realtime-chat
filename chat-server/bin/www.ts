@@ -5,10 +5,9 @@ import app from '../app'
 import http from 'http'
 import debug from 'debug'
 
-const debugServer = debug('api-server:server')
+const debugServer = debug('chat-server:server')
 
 const port = normalizePort(process.env.PORT || '3000')
-app.set('port', port)
 
 const server = http.createServer(app)
 
