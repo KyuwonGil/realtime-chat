@@ -4,32 +4,19 @@
 import app from "../app";
 import http from "http";
 import debug from "debug";
+import { Server, Socket } from "socket.io";
 
 const debugServer = debug("chat-server:server");
 
-const port = normalizePort(process.env.PORT || "3000");
+const port = 3000;
 
 const server = http.createServer(app);
+
+const io = new Server(server);
 
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
-
-function normalizePort(val: string) {
-    const port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
-
-    if (port >= 0) {
-        // port number
-        return port;
-    }
-
-    return false;
-}
 
 function onError(error: { syscall: string; code: string }) {
     if (error.syscall !== "listen") {
