@@ -1,6 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable no-fallthrough */
-
 import app from "../app";
 import http from "http";
 import debug from "debug";
@@ -12,11 +9,20 @@ const port = 3000;
 
 const server = http.createServer(app);
 
-const io = new Server(server);
-
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
+
+const io = new Server(server, {
+    cors: {
+        origin: ["localhost:5173"],
+        credentials: true,
+    },
+});
+
+io.on("connection", (socket) => {
+    socket.onAny((event) => console.log(event));
+});
 
 function onError(error: { syscall: string; code: string }) {
     if (error.syscall !== "listen") {
